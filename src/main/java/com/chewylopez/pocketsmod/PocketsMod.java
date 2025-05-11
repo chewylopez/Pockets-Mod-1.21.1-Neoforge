@@ -1,6 +1,7 @@
 package com.chewylopez.pocketsmod;
 
 import com.chewylopez.pocketsmod.enchantment.ModEnchantmentEffects;
+import com.chewylopez.pocketsmod.player.client.ModMenuTypes;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -25,10 +26,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @Mod(PocketsMod.MODID)
 public class PocketsMod
 {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "pocketsmod";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static final int GLOBAL_MAX_STACK = 128;
+
 
     public PocketsMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
@@ -36,6 +37,7 @@ public class PocketsMod
 
         ModEnchantmentEffects.register(modEventBus);
 
+        ModMenuTypes.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
