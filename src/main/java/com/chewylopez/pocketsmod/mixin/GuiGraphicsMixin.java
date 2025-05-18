@@ -42,7 +42,7 @@ public abstract class GuiGraphicsMixin {
         float inverseScale = 1.0F / scale;
         p.scale(scale, scale, 1.0F);
         Objects.requireNonNull(font);
-        p.translate((x + 16) * inverseScale - font.width(s) + 1.0, (y + 16) * inverseScale - 8.0F, 200.0F);
+        p.translate((x + 16) * inverseScale - font.width(s) + 1.0, (y + 16) * inverseScale - 7.0F, 200.0F);
         MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         font.drawInBatch(s, 0.0F, 0.0F, 16777215, true, p
 

@@ -1,6 +1,7 @@
 package com.chewylopez.pocketsmod;
 
 import com.chewylopez.pocketsmod.enchantment.ModEnchantmentEffects;
+import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
