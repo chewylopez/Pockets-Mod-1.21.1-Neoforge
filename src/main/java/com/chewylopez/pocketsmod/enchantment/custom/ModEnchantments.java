@@ -9,6 +9,7 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ModEnchantments {
@@ -21,9 +22,7 @@ public class ModEnchantments {
         register(context, POCKETS, Enchantment.enchantment(Enchantment.definition(
                 items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 4,
                 Enchantment.dynamicCost(2, 5),
-                Enchantment.dynamicCost(2, 15),2, EquipmentSlotGroup.ARMOR))
-        );
-
+                Enchantment.dynamicCost(2, 15),2, EquipmentSlotGroup.ARMOR)));
     }
 
     private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

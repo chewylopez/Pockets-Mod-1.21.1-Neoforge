@@ -4,12 +4,16 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "GuiGraphicsMixin"
+    "AbstractContainerScreenMixin",
+    "GuiGraphicsMixin",
+    "InventoryScreenMixin"
   ],
   "mixins": [
     "BundleItemMixin",
     "ContainerInterfaceMixin",
     "DataComponentsMixin",
+    "InventoryMenuMixin",
+    "InventoryMixin",
     "ItemEntityMixin",
     "ItemMixin",
     "ItemStackMixin"
