@@ -4,19 +4,24 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "AbstractContainerScreenMixin",
-    "GuiGraphicsMixin",
-    "InventoryScreenMixin"
+    "curios.CuriosScreenMixin",
+    "playerinventory.AbstractContainerScreenMixin",
+    "playerinventory.GuiGraphicsMixin",
+    "playerinventory.InventoryScreenMixin",
+    "playerinventory.RecipeBookComponentMixin"
   ],
   "mixins": [
-    "BundleItemMixin",
-    "ContainerInterfaceMixin",
-    "DataComponentsMixin",
-    "InventoryMenuMixin",
-    "InventoryMixin",
-    "ItemEntityMixin",
-    "ItemMixin",
-    "ItemStackMixin"
+    "curios.CuriosContainerMixin",
+    "item.BundleItemMixin",
+    "item.ContainerInterfaceMixin",
+    "item.DataComponentsMixin",
+    "item.ItemEntityMixin",
+    "item.ItemMixin",
+    "item.ItemStackMixin",
+    "menuinterfaces.BeaconMenuMixin",
+    "menuinterfaces.ItemCombinerScreenMixin",
+    "playerinventory.InventoryMenuMixin",
+    "playerinventory.InventoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

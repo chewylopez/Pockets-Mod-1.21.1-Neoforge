@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.mixin;
+package com.chewylopez.pocketsmod.mixin.item;
 
 import com.chewylopez.pocketsmod.PocketsMod;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;

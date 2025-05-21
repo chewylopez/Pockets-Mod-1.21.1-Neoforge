@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.mixin;
+package com.chewylopez.pocketsmod.mixin.playerinventory;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

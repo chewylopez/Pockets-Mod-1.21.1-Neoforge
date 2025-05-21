@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.mixin;
+package com.chewylopez.pocketsmod.mixin.playerinventory;
 
 import net.minecraft.world.entity.player.Inventory;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class InventoryMixin {
     @ModifyArg(method = {"<init>"}, index = 0, at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/core/NonNullList;withSize(ILjava/lang/Object;)Lnet/minecraft/core/NonNullList;"))
     private int modifyInvSize(int size) {
-        return 54;
+        return 45;
     }
 }
 
