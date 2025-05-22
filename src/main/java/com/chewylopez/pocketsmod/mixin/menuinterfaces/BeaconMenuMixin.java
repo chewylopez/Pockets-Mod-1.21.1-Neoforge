@@ -15,7 +15,7 @@ public class BeaconMenuMixin {
 
     @ModifyConstant(method = {"<init>(ILnet/minecraft/world/Container;Lnet/minecraft/world/inventory/ContainerData;Lnet/minecraft/world/inventory/ContainerLevelAccess;)V"}, constant = {@Constant(intValue = 195)})
     private int changeHotbarHeight(int original) {
-        return original+18;
+        return original + 18;
     }
 
 }

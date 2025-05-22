@@ -25,15 +25,6 @@ public abstract class AbstractContainerScreenMixin extends Screen{
         super(title);
     }
 
-        @Shadow
-        protected int imageHeight;
-
-    @Inject(method = {"<init>"}, at = {@At("TAIL")})
-    private void fixHeight(AbstractContainerMenu menu, Inventory playerInventory, Component title, CallbackInfo ci) {
-        this.imageHeight += 18;
-    }
-
-
     @ModifyConstant(method = {"checkHotbarMouseClicked"}, constant = {@Constant(intValue = 40)})
     private int changeOffhandSlot2(int og) {
         return 49;

@@ -25,6 +25,11 @@ public abstract class CuriosScreenMixin extends AbstractContainerScreen {
     @Unique
     private boolean ButtonClicked;
 
+    @Inject(method = "init", at = @At("HEAD"))
+    private void screenHeightChange(CallbackInfo ci){
+        this.imageHeight += 18;
+    }
+
     public CuriosScreenMixin(AbstractContainerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
     }

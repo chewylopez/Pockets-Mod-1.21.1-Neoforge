@@ -32,6 +32,11 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen {
         super(handler, inventory, title);
     }
 
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void screenHeightChange(Player player, CallbackInfo ci){
+        this.imageHeight += 18;
+    }
+
     @ModifyArg(method = {"init"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ImageButton;<init>(IIIILnet/minecraft/client/gui/components/WidgetSprites;Lnet/minecraft/client/gui/components/Button$OnPress;)V"))
     private Button.OnPress recipeBookPosResetter(Button.OnPress action) {
         return buttonWidget -> {
