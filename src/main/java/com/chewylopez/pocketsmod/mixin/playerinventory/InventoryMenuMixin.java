@@ -36,4 +36,72 @@ public abstract class InventoryMenuMixin extends AbstractContainerMenu {
     private int changeHotbarHeight(int original) {
         return 160;
     }
+
+    @ModifyConstant(method = {"isHotbarSlot"}, constant = @Constant(intValue = 36, ordinal = 0))
+    private static int changeInventoryHotbarReference(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"isHotbarSlot"}, constant = @Constant(intValue = 45, ordinal = 0))
+    private static int changeInventoryHotbarReference2(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"isHotbarSlot"}, constant = @Constant(intValue = 45, ordinal = 1))
+    private static int changeInventoryHotbarReference3(int constant){
+        return constant + 9;
+    }
+
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 0))
+    private int changeInventoryReferenceSize(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 1))
+    private int changeInventoryReferenceSize2(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 2))
+    private int changeInventoryReferenceSize3(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 3))
+    private int changeInventoryReferenceSize4(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 4))
+    private int changeInventoryReferenceSize5(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 46, ordinal = 0))
+    private int changeInventoryReferenceSize6(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 36, ordinal = 0))
+    private int changeInventoryReferenceSize7(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 36, ordinal = 1))
+    private int changeInventoryReferenceSize8(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 5))
+    private int changeInventoryReferenceSize9(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 36, ordinal = 2))
+    private int changeInventoryReferenceSize10(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 6))
+    private int changeInventoryReferenceSize11(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 36, ordinal = 3))
+    private int changeInventoryReferenceSize12(int constant){
+        return constant + 9;
+    }
+    @ModifyConstant(method = {"quickMoveStack"}, constant = @Constant(intValue = 45, ordinal = 7))
+    private int changeInventoryReferenceSize13(int constant){
+        return constant + 9;
+    }
+
+
 }

@@ -17,7 +17,7 @@ public class ModForgeHandler {
     public static void onKeyInput(InputEvent.Key event) {
         if(Keybinds.POCKETS_KEY.consumeClick()){
             System.out.print("test");
-            //event.getEntity().openMenu(new SimpleMenuProvider(PocketsMenu));
+            //event.getEntity()
         }
     }
 

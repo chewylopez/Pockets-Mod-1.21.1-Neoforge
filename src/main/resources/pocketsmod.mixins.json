@@ -15,10 +15,16 @@
     "menuinterfaces.CraftingScreenMixin",
     "menuinterfaces.DispenserScreenMixin",
     "menuinterfaces.EnchantmentScreenMixin",
+    "menuinterfaces.GrindstoneScreenMixin",
+    "menuinterfaces.HopperScreenMixin",
     "playerinventory.AbstractContainerScreenMixin",
+    "playerinventory.CreativeModeInventoryScreenMixin",
     "playerinventory.GuiGraphicsMixin",
     "playerinventory.InventoryScreenMixin",
-    "playerinventory.RecipeBookComponentMixin"
+    "playerinventory.ItemPickerMenuMixin",
+    "playerinventory.MinecraftMixin",
+    "playerinventory.RecipeBookComponentMixin",
+    "playerinventory.RecipeBookPageMixin"
   ],
   "mixins": [
     "curios.CuriosContainerMixin",
@@ -37,9 +43,12 @@
     "menuinterfaces.CraftingMenuMixin",
     "menuinterfaces.DispenserMenuMixin",
     "menuinterfaces.EnchantmentMenuMixin",
+    "menuinterfaces.grindstoneMenuMixin",
+    "menuinterfaces.HopperMenuMixin",
     "menuinterfaces.ItemCombinerScreenMixin",
     "playerinventory.InventoryMenuMixin",
-    "playerinventory.InventoryMixin"
+    "playerinventory.InventoryMixin",
+    "playerinventory.ServerGamePacketListenerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1

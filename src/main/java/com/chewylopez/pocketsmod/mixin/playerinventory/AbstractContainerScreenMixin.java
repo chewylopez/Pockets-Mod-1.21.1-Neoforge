@@ -25,9 +25,5 @@ public abstract class AbstractContainerScreenMixin extends Screen{
         super(title);
     }
 
-    @ModifyConstant(method = {"checkHotbarMouseClicked"}, constant = {@Constant(intValue = 40)})
-    private int changeOffhandSlot2(int og) {
-        return 49;
-    }
 }
 
