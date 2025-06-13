@@ -8,7 +8,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
-    @ModifyConstant(method = {"merge(Lnet/minecraft/world/entity/item/ItemEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)V"}, constant = {@Constant(intValue = 64)})
+    @ModifyConstant(method = {"merge(Lnet/minecraft/world/entity/item/ItemEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)V"},
+            constant = {@Constant(intValue = 64)})
     private static int merge(int val) {
         return PocketsMod.GLOBAL_MAX_STACK;
     }

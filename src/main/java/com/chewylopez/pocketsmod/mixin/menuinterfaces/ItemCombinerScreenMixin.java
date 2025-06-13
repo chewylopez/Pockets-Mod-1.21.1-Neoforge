@@ -18,4 +18,9 @@ public class ItemCombinerScreenMixin {
         return original + 18;
     }
 
+    @ModifyConstant(method = {"getInventorySlotEnd"}, constant = {@Constant(intValue = 27)})
+    private int changeInventoryReference(int original) {
+        return 36;
+    }
+
 }

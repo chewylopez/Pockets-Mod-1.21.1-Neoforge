@@ -45,7 +45,7 @@ public abstract class CuriosScreenMixin extends AbstractContainerScreen {
     }
 
     @ModifyConstant(method = {"init"}, constant = {@Constant(intValue = 22, ordinal = 0)})
-    private int recipeBookPosFix(int og) {
+    private int recipeBookPosFix(int original) {
         return 31;
     }
 

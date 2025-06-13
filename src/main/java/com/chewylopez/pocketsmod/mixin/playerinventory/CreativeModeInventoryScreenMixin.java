@@ -73,4 +73,15 @@ public abstract class CreativeModeInventoryScreenMixin extends AbstractContainer
         return constant + 18;
     }
 
+
+    @ModifyConstant(method = "selectTab", constant = @Constant(intValue = -2000, ordinal = 0))
+    private int changething(int constant){
+        return -2000; //10;
+    }
+    @ModifyConstant(method = "selectTab", constant = @Constant(intValue = -2000, ordinal = 1))
+    private int changething2(int constant){
+        return -2000; //10;
+    }
+
+
 }

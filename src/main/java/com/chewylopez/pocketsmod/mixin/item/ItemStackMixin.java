@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    @ModifyExpressionValue(method = {"lambda$static$3(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/util/ExtraCodecs;intRange(II)Lcom/mojang/serialization/Codec;")})
+    @ModifyExpressionValue(method = {"lambda$static$3(Lcom/mojang/serialization/codecs/RecordCodecBuilder$Instance;)Lcom/mojang/datafixers/kinds/App;"},
+            at = {@At(value = "INVOKE", target = "Lnet/minecraft/util/ExtraCodecs;intRange(II)Lcom/mojang/serialization/Codec;")})
     private static Codec<Integer> replaceCodec(Codec<Integer> original) {
         return Codec.intRange(0, PocketsMod.GLOBAL_MAX_STACK);
     }

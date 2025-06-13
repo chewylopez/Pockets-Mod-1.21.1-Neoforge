@@ -12,5 +12,9 @@ public class ServerGamePacketListenerImplMixin{
     private int changePacketSizeReference(int original) {
         return original + 9;
     }
+    @ModifyConstant(method = {"handleEditBook"}, constant = {@Constant(intValue = 40)})
+    private int changeinventorySizeReference(int original) {
+        return original + 9;
+    }
 
 }
