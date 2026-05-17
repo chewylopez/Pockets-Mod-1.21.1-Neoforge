@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.mixin.playerinventory.interfaces;
+package com.chewylopez.pocketsmod.InventoryInterface;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
