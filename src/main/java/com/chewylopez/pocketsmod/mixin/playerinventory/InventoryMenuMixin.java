@@ -1,14 +1,17 @@
 package com.chewylopez.pocketsmod.mixin.playerinventory;
 
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.Nullable;
 
-@Mixin(InventoryMenu.class)
+@Mixin(value = InventoryMenu.class, priority = 1)
 public abstract class InventoryMenuMixin extends AbstractContainerMenu {
 
     @Shadow @Final private ResultContainer resultSlots;
@@ -36,6 +39,21 @@ public abstract class InventoryMenuMixin extends AbstractContainerMenu {
     private int changeHotbarHeight(int original) {
         return 160;
     }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void createPocketsSlots(Inventory playerInventory, boolean active, Player owner, CallbackInfo ci){
+
+        int index = 0;
+
+        for(int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; j++) {
+                this.addSlot(new Slot(playerInventory, 50 + index, -30 - (18 * j), 8 + (i * 18)));
+                index++;
+            }
+        }
+
+    }
+
 
     @ModifyConstant(method = {"isHotbarSlot"}, constant = @Constant(intValue = 36, ordinal = 0))
     private static int changeInventoryHotbarReference(int constant){
