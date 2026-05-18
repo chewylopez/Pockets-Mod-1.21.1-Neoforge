@@ -58,7 +58,9 @@
     "menuinterfaces.ShulkerBoxMenuMixin",
     "menuinterfaces.StonecutterMenuMixin",
     "playerinventory.InventoryMenuMixin",
+    "playerinventory.InventoryMenuMixinPockets",
     "playerinventory.InventoryMixin",
+    "playerinventory.InventoryMixinPockets",
     "playerinventory.ServerGamePacketListenerImplMixin"
   ],
   "injectors": {

@@ -23,9 +23,9 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen {
 
     //@Shadow
     @Unique
-
     private boolean ButtonClicked;
 
+    @Unique
     private static final ResourceLocation BONUS_ROWS_TEXTURE = ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID, "textures/gui/bonus_rows.png");
 
     public InventoryScreenMixin(AbstractContainerMenu handler, Inventory inventory, Component title) {

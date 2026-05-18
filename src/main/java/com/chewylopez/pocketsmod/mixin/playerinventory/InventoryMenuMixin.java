@@ -37,21 +37,7 @@ public abstract class InventoryMenuMixin extends AbstractContainerMenu {
 
     @ModifyConstant(method = {"<init>"}, constant = {@Constant(intValue = 142)})
     private int changeHotbarHeight(int original) {
-        return 160;
-    }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void createPocketsSlots(Inventory playerInventory, boolean active, Player owner, CallbackInfo ci){
-
-        int index = 0;
-
-        for(int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; j++) {
-                this.addSlot(new Slot(playerInventory, 50 + index, -30 - (18 * j), 8 + (i * 18)));
-                index++;
-            }
-        }
-
+        return 10;
     }
 
 

@@ -20,7 +20,7 @@ public class ModEnchantments {
         var items = context.lookup(Registries.ITEM);
 
         register(context, POCKETS, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), 5, 4,
+                items.getOrThrow(ItemTags.EQUIPPABLE_ENCHANTABLE), 5, 4,
                 Enchantment.dynamicCost(2, 5),
                 Enchantment.dynamicCost(2, 15),2, EquipmentSlotGroup.ARMOR)));
     }

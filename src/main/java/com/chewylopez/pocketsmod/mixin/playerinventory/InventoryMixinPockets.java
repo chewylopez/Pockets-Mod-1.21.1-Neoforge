@@ -78,7 +78,7 @@ public class InventoryMixinPockets implements IInventoryPartition {
     }
 
     @Override
-    public NonNullList<ItemStack> pockets_Mod_1_21_1_Neoforge$createBootsInventoryPartition() {
+    public NonNullList<ItemStack> pockets_Mod_1_21_1_Neoforge$getBootsInventoryPartition() {
         return boots_pocket;
     }
 
