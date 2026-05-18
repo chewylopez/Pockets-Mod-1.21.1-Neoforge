@@ -26,10 +26,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 @EventBusSubscriber(modid = PocketsMod.MODID)
 public class InventoryEvents {
 
-    private static int HELMET_POCKET_INDEX = 55;
-    private static int CHEST_POCKET_INDEX = 59;
-    private static int LEGS_POCKET_INDEX = 63;
-    private static int BOOTS_POCKET_INDEX = 67;
+    private static final int HELMET_POCKET_INDEX = 55;
+    private static final int CHEST_POCKET_INDEX = 59;
+    private static final int LEGS_POCKET_INDEX = 63;
+    private static final int BOOTS_POCKET_INDEX = 67;
 
 
     //armor taken on or off
@@ -40,7 +40,7 @@ public class InventoryEvents {
 
             ItemStack armorStack = player.getItemBySlot(event.getSlot());
 
-            if (event.getSlot().isArmor()) {
+            if (event.getSlot().isArmor() && !player.isCreative()) {
 
                 if(armorStack.getItem() instanceof ArmorItem item) {
 

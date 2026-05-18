@@ -1,8 +1,10 @@
 package com.chewylopez.pocketsmod.mixin.playerinventory;
 
+
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -11,7 +13,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(CreativeModeInventoryScreen.class)
+import java.util.List;
+
+@Mixin(value = CreativeModeInventoryScreen.class, priority = 1)
 public abstract class CreativeModeInventoryScreenMixin extends AbstractContainerScreen {
 
     public CreativeModeInventoryScreenMixin(AbstractContainerMenu menu, Inventory playerInventory, Component title) {
@@ -72,8 +76,6 @@ public abstract class CreativeModeInventoryScreenMixin extends AbstractContainer
     private int changeHotbarPosition(int constant){
         return constant + 18;
     }
-
-
     @ModifyConstant(method = "selectTab", constant = @Constant(intValue = -2000, ordinal = 0))
     private int changething(int constant){
         return -2000; //10;
@@ -82,6 +84,5 @@ public abstract class CreativeModeInventoryScreenMixin extends AbstractContainer
     private int changething2(int constant){
         return -2000; //10;
     }
-
 
 }
