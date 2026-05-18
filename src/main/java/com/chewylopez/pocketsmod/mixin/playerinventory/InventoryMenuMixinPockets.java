@@ -31,7 +31,7 @@ public abstract class InventoryMenuMixinPockets extends AbstractContainerMenu im
 
         for(int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; j++) {
-                this.addSlot(new ToggleSlot(playerInventory, 50 + index, -30 - (18 * j), 8 + (i * 18), this.slotToggleData, index));
+                this.addSlot(new ToggleSlot(playerInventory, 50 + index, -18 - (18 * j), 8 + (i * 18), this.slotToggleData, index));
                 index++;
             }
         }
@@ -41,5 +41,17 @@ public abstract class InventoryMenuMixinPockets extends AbstractContainerMenu im
     public void setToggleEnabled(int index, boolean enabled) {
         this.slotToggleData.set(index, enabled ? 1 : 0);
     }
+
+    @Override
+    public boolean getToggleEnabled(int index) {
+        if(this.slotToggleData.get(index) == 0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
 
 }

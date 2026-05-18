@@ -37,7 +37,7 @@ public abstract class InventoryMenuMixin extends AbstractContainerMenu {
 
     @ModifyConstant(method = {"<init>"}, constant = {@Constant(intValue = 142)})
     private int changeHotbarHeight(int original) {
-        return 10;
+        return 160;
     }
 
 

@@ -1,0 +1,5 @@
+{
+  "sources": [
+    { "type": "single", "resource": "pocketsmod:container/pockets_slots" }
+  ]
+}

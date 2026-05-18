@@ -31,4 +31,5 @@ public class ToggleSlot extends Slot {
     public boolean mayPlace(ItemStack stack) {
         return data.get(dataIndex) == 1 && super.mayPlace(stack);
     }
+
 }
