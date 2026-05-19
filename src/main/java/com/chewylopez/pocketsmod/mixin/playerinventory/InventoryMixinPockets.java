@@ -34,13 +34,13 @@ public class InventoryMixinPockets implements IInventoryPartition {
     public NonNullList<ItemStack> offhand;
 
     @Unique
-    private NonNullList<ItemStack> helmet_pocket;
+    public NonNullList<ItemStack> helmet_pocket;
     @Unique
-    private NonNullList<ItemStack> chest_pocket;
+    public NonNullList<ItemStack> chest_pocket;
     @Unique
-    private NonNullList<ItemStack> legs_pocket;
+    public NonNullList<ItemStack> legs_pocket;
     @Unique
-    private NonNullList<ItemStack> boots_pocket;
+    public NonNullList<ItemStack> boots_pocket;
 
     @Inject(method = {"<init>"},at =  @At("TAIL"))
     private void addToCompartments(CallbackInfo ci) {
