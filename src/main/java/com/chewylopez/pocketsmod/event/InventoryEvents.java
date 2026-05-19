@@ -1,9 +1,11 @@
 package com.chewylopez.pocketsmod.event;
 
+import com.chewylopez.pocketsmod.Config;
 import com.chewylopez.pocketsmod.InventoryInterface.IInventoryPartition;
 import com.chewylopez.pocketsmod.InventoryInterface.IToggleSlot;
 import com.chewylopez.pocketsmod.InventoryInterface.ToggleSlot;
 import com.chewylopez.pocketsmod.PocketsMod;
+import com.chewylopez.pocketsmod.client.ConfigScreen;
 import com.chewylopez.pocketsmod.enchantment.custom.ModEnchantments;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
