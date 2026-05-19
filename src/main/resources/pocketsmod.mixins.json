@@ -25,6 +25,7 @@
     "menuinterfaces.StonecutterScreenMixin",
     "playerinventory.AbstractContainerScreenMixin",
     "playerinventory.CreativeModeInventoryScreenMixin",
+    "playerinventory.CreativeModeInventoryScreenPocketsMixin",
     "playerinventory.GuiGraphicsMixin",
     "playerinventory.InventoryScreenMixin",
     "playerinventory.ItemPickerMenuMixin",

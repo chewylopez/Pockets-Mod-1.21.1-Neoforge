@@ -1,6 +1,10 @@
 package com.chewylopez.pocketsmod;
 
+import com.chewylopez.pocketsmod.client.ConfigScreen;
 import com.chewylopez.pocketsmod.enchantment.ModEnchantmentEffects;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -17,15 +21,17 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 public class PocketsMod
 {
     public static final String MODID = "pocketsmod";
-    private static final Logger LOGGER = LogUtils.getLogger();
-    public static final int GLOBAL_MAX_STACK = 128;
-
 
     public PocketsMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
 
-        //ModEnchantmentEffects.register(modEventBus);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        ModLoadingContext.get().registerExtensionPoint(
+                IConfigScreenFactory.class,
+                () -> (minecraft, parent) -> new ConfigScreen(parent)
+        );
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
