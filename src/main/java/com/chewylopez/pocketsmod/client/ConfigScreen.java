@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public class ConfigScreen extends Screen {
 
@@ -42,7 +41,6 @@ public class ConfigScreen extends Screen {
                         case "1 (challenge mode)"  -> 1;
                         default                    -> 64;
                     };
-                    Config.ITEMSTACK_SIZE_CONFIG.set(Config.ITEMSTACK_SIZE);
                 });
 
         StringWidget title = new StringWidget(this.width/2-100, 70, 200, 20, Component.literal("change max itemstack limit"), font.self());
@@ -55,8 +53,8 @@ public class ConfigScreen extends Screen {
 
         addRenderableWidget(Button.builder(Component.literal("Update Value"), button -> {
             Config.ITEMSTACK_SIZE_CONFIG.set(Config.ITEMSTACK_SIZE);
+            Config.SPEC.save();
             System.out.println("ItemStack size updated: " + Config.ITEMSTACK_SIZE);
-
         }).bounds(this.width / 2 - 100, 130, 200, 20).build());
     }
 }
