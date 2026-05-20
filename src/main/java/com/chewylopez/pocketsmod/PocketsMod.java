@@ -2,8 +2,9 @@ package com.chewylopez.pocketsmod;
 
 import com.chewylopez.pocketsmod.block.ModBlocks;
 import com.chewylopez.pocketsmod.client.ConfigScreen;
-import com.chewylopez.pocketsmod.enchantment.ModEnchantmentEffects;
+import com.chewylopez.pocketsmod.entity.block.ModBlockEntities;
 import com.chewylopez.pocketsmod.item.ModItems;
+import com.chewylopez.pocketsmod.player.ModMenuTypes;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -32,6 +33,8 @@ public class PocketsMod
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         ModLoadingContext.get().registerExtensionPoint(
                 IConfigScreenFactory.class,
