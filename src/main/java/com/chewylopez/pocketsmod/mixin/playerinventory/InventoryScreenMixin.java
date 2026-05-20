@@ -21,10 +21,6 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen {
     @Final
     private RecipeBookComponent recipeBookComponent;
 
-    //@Shadow
-    @Unique
-    private boolean ButtonClicked;
-
     @Unique
     private static final ResourceLocation BONUS_ROWS_TEXTURE = ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID, "textures/gui/bonus_rows.png");
 
@@ -43,7 +39,6 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen {
             this.recipeBookComponent.toggleVisibility();
             this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
             buttonWidget.setPosition(this.leftPos + 104, this.height / 2 - 31);
-            this.ButtonClicked = true;
         };
     }
 
