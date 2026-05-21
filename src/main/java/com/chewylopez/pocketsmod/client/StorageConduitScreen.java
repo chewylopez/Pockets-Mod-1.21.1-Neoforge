@@ -25,7 +25,7 @@ import java.awt.*;
 @OnlyIn(Dist.CLIENT)
 public class StorageConduitScreen extends AbstractContainerScreen<StorageConduitMenu> {
 
-    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID,"textures/gui/container/conduit_texture.png");
+    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID,"textures/gui/container/conduit_texture_vanilla.png");
 
     private static final ResourceLocation[] TABS_TOP_UNSELECTED = {
             ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_2"),
@@ -93,7 +93,7 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
         super(menu, inv, title);
         imageWidth = 200;
         imageHeight = 222;
-        inventoryLabelY = imageHeight - 112;
+        inventoryLabelY = imageHeight - 94;
     }
 
     @Override
