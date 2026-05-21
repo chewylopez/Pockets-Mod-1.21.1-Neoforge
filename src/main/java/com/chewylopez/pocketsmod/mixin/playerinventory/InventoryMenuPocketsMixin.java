@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = InventoryMenu.class, priority = 2)
-public abstract class InventoryMenuMixinPockets extends AbstractContainerMenu implements IToggleSlot {
+public abstract class InventoryMenuPocketsMixin extends AbstractContainerMenu implements IToggleSlot {
 
     @Unique
     private SimpleContainerData slotToggleData;
 
-    protected InventoryMenuMixinPockets(@Nullable MenuType<?> menuType, int containerId) {
+    protected InventoryMenuPocketsMixin(@Nullable MenuType<?> menuType, int containerId) {
         super(menuType, containerId);
     }
 

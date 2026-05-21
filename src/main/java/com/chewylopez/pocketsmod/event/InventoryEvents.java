@@ -40,10 +40,10 @@ import org.joml.Matrix4f;
 @EventBusSubscriber(modid = PocketsMod.MODID)
 public class InventoryEvents {
 
-    private static final int HELMET_POCKET_INDEX = 55;
-    private static final int CHEST_POCKET_INDEX = 59;
-    private static final int LEGS_POCKET_INDEX = 63;
-    private static final int BOOTS_POCKET_INDEX = 67;
+    private static final int HELMET_POCKET_INDEX = 46;
+    private static final int CHEST_POCKET_INDEX = 50;
+    private static final int LEGS_POCKET_INDEX = 54;
+    private static final int BOOTS_POCKET_INDEX = 58;
 
     //armor taken on or off
     @SubscribeEvent

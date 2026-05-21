@@ -92,7 +92,7 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
     public StorageConduitScreen(StorageConduitMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
         imageWidth = 200;
-        imageHeight = 222 + 18;
+        imageHeight = 222;
         inventoryLabelY = imageHeight - 112;
     }
 

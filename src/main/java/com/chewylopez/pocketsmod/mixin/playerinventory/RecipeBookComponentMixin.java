@@ -22,9 +22,4 @@ public class RecipeBookComponentMixin {
         NeoForge.EVENT_BUS.post(new RecipeBookToggleEvent(this.visible));
     }
 
-    @ModifyConstant(method = {"render"}, constant = {@Constant(intValue = 166)})
-    private int changePosition(int original) {
-        return original + 18;
-    }
-
 }

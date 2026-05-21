@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = CreativeModeInventoryScreen.class, priority = 2)
+@Mixin(value = CreativeModeInventoryScreen.class)
 public class CreativeModeInventoryScreenPocketsMixin {
 
     @Redirect(method = "selectTab", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/NonNullList;size()I", ordinal = 0))
