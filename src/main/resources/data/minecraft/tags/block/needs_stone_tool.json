@@ -1,0 +1,7 @@
+{
+  ":replace": false,
+  "values":[
+    "pocketsmod:storage_conduit",
+    "pocketsmod:storage_conduit_connector"
+  ]
+}

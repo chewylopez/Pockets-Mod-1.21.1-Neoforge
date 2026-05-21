@@ -1,3 +1,5 @@
 {
-  "enchantment.pocketsmod.pockets": "Magic Pockets"
+  "enchantment.pocketsmod.magic_pockets": "Magic Pockets",
+  "block.pocketsmod.storage_conduit": "Storage Conduit",
+  "block.pocketsmod.storage_conduit_connector": "Storage Conduit Connector"
 }
