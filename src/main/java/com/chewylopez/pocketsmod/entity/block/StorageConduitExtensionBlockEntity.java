@@ -19,24 +19,17 @@ public class StorageConduitExtensionBlockEntity extends BlockEntity {
         super(ModBlockEntities.STORAGE_CONDUIT_EXTENSION.get(), pos, state);
     }
 
-    /** Called by the scanner on its scan tick. */
     public List<InventorySource> getInventorySources() {
         Level level = getLevel();
         if (level == null) return List.of();
 
-        Direction front = getBlockState().getValue(StorageConduitExtensionBlock.FACING);
         List<InventorySource> sources = new ArrayList<>();
-
         for (Direction dir : Direction.values()) {
-            if (dir == front) continue; // this face is the connection to the scanner
             BlockPos neighbor = getBlockPos().relative(dir);
-            // Don't re-include scanner or other extensions in the tab list
-            if (level.getBlockEntity(neighbor) instanceof StorageConduitBlockEntity) continue;
+            if (level.getBlockEntity(neighbor) instanceof StorageConduitBlockEntity)  continue;
             if (level.getBlockEntity(neighbor) instanceof StorageConduitExtensionBlockEntity) continue;
             IItemHandler h = level.getCapability(Capabilities.ItemHandler.BLOCK, neighbor, dir.getOpposite());
-            if (h != null){
-                sources.add(new InventorySource(neighbor, dir.getOpposite()));
-            }
+            if (h != null) sources.add(new InventorySource(neighbor, dir.getOpposite()));
         }
         return sources;
     }

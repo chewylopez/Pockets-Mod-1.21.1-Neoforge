@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pocketsmod:block/storage_conduit"
+    },
+    "facing=south": {
+      "model": "pocketsmod:block/storage_conduit", "y": 180
+    },
+    "facing=west": {
+      "model": "pocketsmod:block/storage_conduit", "y": 270
+    },
+    "facing=east": {
+      "model": "pocketsmod:block/storage_conduit", "y": 90
+    },
+    "facing=up": {
+      "model": "pocketsmod:block/storage_conduit", "x": -90
+    },
+    "facing=down": {
+      "model": "pocketsmod:block/storage_conduit", "x": 90
+    }
+  }
+}

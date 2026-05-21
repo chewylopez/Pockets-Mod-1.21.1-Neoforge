@@ -1,5 +1,7 @@
 package com.chewylopez.pocketsmod.InventoryInterface;
 
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
@@ -13,8 +15,27 @@ public class StorageToggleSlot extends SlotItemHandler {
         this.limit = limit;
     }
 
+    public boolean isEnabled() {
+        return index < limit.getAsInt();
+    }
+
     @Override
     public boolean isActive() {
-        return index < limit.getAsInt();
+        return true;
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return isEnabled() ? super.getItem() : ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean mayPlace(ItemStack stack) {
+        return isEnabled() && super.mayPlace(stack);
+    }
+
+    @Override
+    public boolean mayPickup(Player player) {
+        return isEnabled() && super.mayPickup(player);
     }
 }

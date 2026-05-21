@@ -1,7 +1,6 @@
 package com.chewylopez.pocketsmod.entity.block;
 
 import com.chewylopez.pocketsmod.InventoryInterface.InventorySource;
-import com.chewylopez.pocketsmod.block.StorageConduitExtensionBlock;
 import com.chewylopez.pocketsmod.client.StorageConduitMenu;
 import com.chewylopez.pocketsmod.client.TabMetadata;
 import net.minecraft.core.BlockPos;
@@ -19,8 +18,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
@@ -29,6 +30,8 @@ import java.util.*;
 public class StorageConduitBlockEntity extends BlockEntity implements MenuProvider {
 
     private static final int SCAN_INTERVAL = 20;
+
+    private static final int MAX_CHAINED_CONNECTORS = 20;
 
     private final List<InventorySource> tabs = new ArrayList<>();
     private int activeTab = 0;
@@ -52,23 +55,19 @@ public class StorageConduitBlockEntity extends BlockEntity implements MenuProvid
         InventorySource previous = (activeTab >= 0 && activeTab < tabs.size()) ? tabs.get(activeTab) : null;
         tabs.clear();
 
+        Set<BlockPos> visited        = new HashSet<>();
+        Set<BlockPos> seenInventories = new HashSet<>();
+        visited.add(pos);
+
         for (Direction dir : Direction.values()) {
             BlockPos neighbor = pos.relative(dir);
             BlockEntity be = level.getBlockEntity(neighbor);
-
             if (be instanceof StorageConduitExtensionBlockEntity ext) {
-                // Only follow extensions whose front actually faces back toward this scanner
-                Direction extFacing = ext.getBlockState().getValue(StorageConduitExtensionBlock.FACING);
-                if (extFacing == dir.getOpposite()) {
-                    followChain(level, ext);
-                }
-            }
-            else if (be instanceof StorageConduitBlockEntity) {
-                continue; // never treat another conduit as an inventory
-            }
-            else {
-                IItemHandler h = level.getCapability(Capabilities.ItemHandler.BLOCK, neighbor, dir.getOpposite());
-                if (h != null){
+                followNetwork(level, ext, visited, seenInventories);
+            } else if (!(be instanceof StorageConduitBlockEntity)) {
+                IItemHandler h = level.getCapability(
+                        Capabilities.ItemHandler.BLOCK, neighbor, dir.getOpposite());
+                if (h != null && seenInventories.add(canonicalPos(level, neighbor))) {
                     tabs.add(new InventorySource(neighbor, dir.getOpposite()));
                 }
             }
@@ -76,34 +75,41 @@ public class StorageConduitBlockEntity extends BlockEntity implements MenuProvid
 
         if (previous != null) {
             int idx = tabs.indexOf(previous);
-            if (idx >= 0){
-                activeTab = idx;
-            }
-            else {
-                activeTab = Math.min(activeTab, Math.max(0, tabs.size() - 1)); scrollRow = 0;
-            }
-        }
-        else {
+            if (idx >= 0) activeTab = idx;
+            else { activeTab = Math.min(activeTab, Math.max(0, tabs.size() - 1)); scrollRow = 0; }
+        } else {
             activeTab = 0; scrollRow = 0;
         }
     }
 
-    /** Walks a linear chain of extension blocks away from the scanner, max 20 deep. */
-    private void followChain(Level level, StorageConduitExtensionBlockEntity start) {
-        StorageConduitExtensionBlockEntity current = start;
-        for (int depth = 0; depth < 20; depth++) {
-            tabs.addAll(current.getInventorySources());
+    private void followNetwork(Level level, StorageConduitExtensionBlockEntity ext,
+                               Set<BlockPos> visited, Set<BlockPos> seenInventories) {
+        if (visited.size() > MAX_CHAINED_CONNECTORS) return;
+        if (!visited.add(ext.getBlockPos())) return;
 
-            Direction facing  = current.getBlockState().getValue(StorageConduitExtensionBlock.FACING);
-            Direction outward = facing.getOpposite(); // direction away from scanner
-            BlockPos  nextPos = current.getBlockPos().relative(outward);
-
-            if (!(level.getBlockEntity(nextPos) instanceof StorageConduitExtensionBlockEntity next)) break;
-            // The next block must face the same way (toward the scanner) to be part of this chain
-            if (next.getBlockState().getValue(StorageConduitExtensionBlock.FACING) != facing) break;
-
-            current = next;
+        for (InventorySource src : ext.getInventorySources()) {
+            if (seenInventories.add(canonicalPos(level, src.pos()))) {
+                tabs.add(src);
+            }
         }
+
+        for (Direction dir : Direction.values()) {
+            BlockPos next = ext.getBlockPos().relative(dir);
+            if (visited.contains(next)) continue;
+            if (level.getBlockEntity(next) instanceof StorageConduitExtensionBlockEntity nextExt) {
+                followNetwork(level, nextExt, visited, seenInventories);
+            }
+        }
+    }
+
+    private static BlockPos canonicalPos(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.getBlock() instanceof ChestBlock
+                && state.hasProperty(ChestBlock.TYPE)
+                && state.getValue(ChestBlock.TYPE) == ChestType.RIGHT) {
+            return pos.relative(ChestBlock.getConnectedDirection(state));
+        }
+        return pos;
     }
 
     public void setScrollRow(int row) {

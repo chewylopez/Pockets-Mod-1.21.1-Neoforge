@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GRG",
+    "ICI",
+    "SSS"
+  ],
+  "key": {
+    "S": { "item": "minecraft:stone" },
+    "C": { "item": "minecraft:conduit" },
+    "I": { "item": "minecraft:iron_block" },
+    "R": { "item": "minecraft:redstone_block" },
+    "G": { "item": "minecraft:glass" }
+  },
+  "result": {
+    "id": "pocketsmod:storage_conduit",
+    "count": 1
+  }
+}

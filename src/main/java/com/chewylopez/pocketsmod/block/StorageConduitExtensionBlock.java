@@ -25,10 +25,6 @@ public class StorageConduitExtensionBlock extends BaseEntityBlock {
 
     public StorageConduitExtensionBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        properties
-                .mapColor(MapColor.STONE)
-                .strength(3.5f)
-                .requiresCorrectToolForDrops();
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

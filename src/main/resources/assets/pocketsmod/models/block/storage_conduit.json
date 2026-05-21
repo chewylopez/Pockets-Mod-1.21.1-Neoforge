@@ -1,0 +1,8 @@
+{
+	"parent": "minecraft:block/orientable",
+	"textures": {
+		"top": "pocketsmod:block/storage_conduit_side",
+		"front": "pocketsmod:block/storage_conduit_front",
+		"side": "pocketsmod:block/storage_conduit_side"
+	}
+}

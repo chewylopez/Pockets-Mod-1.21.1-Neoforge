@@ -1,41 +1,78 @@
 package com.chewylopez.pocketsmod.client;
 
+import com.chewylopez.pocketsmod.InventoryInterface.StorageToggleSlot;
+import com.chewylopez.pocketsmod.PocketsMod;
 import com.chewylopez.pocketsmod.server.ScrollRowPacket;
 import com.chewylopez.pocketsmod.server.SelectTabPacket;
 import com.chewylopez.pocketsmod.server.SetTabIconPacket;
 import com.chewylopez.pocketsmod.server.SetTabNamePacket;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
+import java.awt.*;
+
 @OnlyIn(Dist.CLIENT)
 public class StorageConduitScreen extends AbstractContainerScreen<StorageConduitMenu> {
 
-    private static final ResourceLocation BG =
-            ResourceLocation.withDefaultNamespace("textures/gui/container/generic_54.png");
+    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID,"textures/gui/container/conduit_texture.png");
 
-    // Layout constants — 5 tabs per row centered with arrow buttons on each side
+    private static final ResourceLocation[] TABS_TOP_UNSELECTED = {
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_2"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_3"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_4"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_5"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_unselected_6"),
+    };
+
+    private static final ResourceLocation[] TABS_TOP_SELECTED = {
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_selected_2"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_selected_3"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_selected_4"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_selected_5"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_top_selected_6"),
+    };
+
+    private static final ResourceLocation[] TABS_BOTTOM_UNSELECTED = {
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_unselected_2"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_unselected_3"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_unselected_4"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_unselected_5"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_unselected_6"),
+    };
+
+    private static final ResourceLocation[] TABS_BOTTOM_SELECTED = {
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_selected_2"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_selected_3"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_selected_4"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_selected_5"),
+            ResourceLocation.withDefaultNamespace("container/creative_inventory/tab_bottom_selected_6"),
+    };
+
+
     private static final int TAB_WIDTH = 26;
     private static final int TAB_HEIGHT = 28;
     private static final int TABS_PER_ROW = 5;
     private static final int TABS_PER_PAGE = TABS_PER_ROW * 2;
-    private static final int INACTIVE_TABS_SINK = 4;
-    private static final int ARROW_WIDTH = 13;
+    private static final int INACTIVE_TABS_SINK = 0;
+    private static final int ARROW_SIZE = 20;
 
     private static final int LEFT_MARGIN = 10;
     private static final int ARROW_L_RELATIVE_X = LEFT_MARGIN - 5;
-    private static final int TABS_REL = LEFT_MARGIN + ARROW_WIDTH;
-    private static final int ARROW_R_RELATIVE_X = LEFT_MARGIN + ARROW_WIDTH + TABS_PER_ROW * TAB_WIDTH + 5;
+    private static final int TABS_REL = LEFT_MARGIN + ARROW_SIZE;
+    private static final int ARROW_R_RELATIVE_X = LEFT_MARGIN + ARROW_SIZE + TABS_PER_ROW * TAB_WIDTH + 5;
 
-    private static final int SCROLL_X_RELATIVE_POS = 178;
+    private static final int SCROLL_X_RELATIVE_POS = 172;
     private static final int SCROLL_W = 12;
     private static final int SCROLL_TOP_REL = 18;
     private static final int SCROLL_TRACK_H = 18*6;
@@ -49,23 +86,41 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
     private EditBox renameField;
     private int renamingTabIndex = -1;
 
+    private Button prevPageButton;
+    private Button nextPageButton;
+
     public StorageConduitScreen(StorageConduitMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
-        imageWidth = 192; // 176 panel + 16 for scrollbar
+        imageWidth = 200;
         imageHeight = 222 + 18;
-        inventoryLabelY = imageHeight - 94;
+        inventoryLabelY = imageHeight - 112;
     }
 
     @Override
     public void init() {
         super.init();
-        renameField = addRenderableWidget(new EditBox(font, leftPos + 8, topPos - TAB_HEIGHT - 28, imageWidth - 16, 14, Component.empty()));
+        renameField = addRenderableWidget(new EditBox(font, leftPos, topPos - TAB_HEIGHT - 14, imageWidth/2 - 26, 14, Component.empty()));
         renameField.setMaxLength(32);
         renameField.setVisible(false);
+
+        int aTop = topPos - TAB_HEIGHT + 6;
+
+        prevPageButton = addRenderableWidget(Button.builder(Component.literal("<"), b -> {
+            if (currentPage > 0) { currentPage--; updatePageButtons(); }
+        }).pos(leftPos + ARROW_L_RELATIVE_X, aTop).size(ARROW_SIZE, ARROW_SIZE).build());
+
+        nextPageButton = addRenderableWidget(Button.builder(Component.literal(">"), b -> {
+            int max = (menu.getTabCount() - 1) / TABS_PER_PAGE;
+            if (currentPage < max) { currentPage++; updatePageButtons(); }
+        }).pos(leftPos + ARROW_R_RELATIVE_X, aTop).size(ARROW_SIZE, ARROW_SIZE).build());
+
+        updatePageButtons();
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partial) {
+        updatePageButtons();
+
         int tab = menu.getActiveTab();
 
         if (tab != lastActiveTab) {
@@ -88,9 +143,27 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         clampPage();
         drawTabs(graphics, false);
+        graphics.blit(BG, leftPos, topPos, 0, 0, 191, imageHeight);
+
         graphics.blit(BG, leftPos, topPos, 0, 0, 176, imageHeight);
+
+        for (Slot slot : menu.slots) {
+            if (slot instanceof StorageToggleSlot s && !s.isEnabled()) {
+                graphics.fill(
+                        leftPos + slot.x, topPos + slot.y,
+                        leftPos + slot.x + 16, topPos + slot.y + 16,
+                        0x80000000
+                );
+            }
+        }
+
         drawTabs(graphics, true);
-        drawArrows(graphics, mouseX, mouseY);
+
+        if (menu.getTabCount() > TABS_PER_PAGE) {
+            int max = (menu.getTabCount() - 1) / TABS_PER_PAGE;
+            graphics.drawCenteredString(font, (currentPage + 1) + " / " + (max + 1), leftPos + imageWidth / 2 - 5, topPos - TAB_HEIGHT - 10, 0xFFAAAAAA);
+        }
+
         drawScrollbar(graphics);
     }
 
@@ -119,17 +192,19 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
         int y = topPos  + SCROLL_TOP_REL;
 
         // Track
-        graphics.fill(x, y, x + SCROLL_W, y + SCROLL_TRACK_H, 0xFF000000);
-        graphics.fill(x + 1, y + 1, x + SCROLL_W - 1, y + SCROLL_TRACK_H - 1, 0xFF373737);
+        //graphics.fill(x, y, x + SCROLL_W, y + SCROLL_TRACK_H, 0xFF000000);
+        //graphics.fill(x + 1, y + 1, x + SCROLL_W + 1, y + SCROLL_TRACK_H - 1, 0xFF373737);
 
         // Thumb
         int ty = thumbY(), th = thumbHeight();
         int thumbColor = canScroll() ? 0xFFAAAAAA : 0xFF555555;
-        graphics.fill(x + 1, ty, x + SCROLL_W - 1, ty + th, thumbColor);
+        graphics.fill(x + 1, ty, x + SCROLL_W - 1, ty + th - 2, thumbColor);
         if (canScroll()) {
-            graphics.fill(x + 1, ty, x + SCROLL_W - 1, ty + 1,  0xFFCCCCCC); // top highlight
-            graphics.fill(x + 1, ty, x + 2, ty + th, 0xFFCCCCCC); // left highlight
-            graphics.fill(x + 1, ty + th - 1, x + SCROLL_W - 1, ty + th, 0xFF222222); // bottom shadow
+            graphics.fill(x + 1, ty, x + 2, ty + th - 2, 0xFFCCCCCC); //left highlight
+            graphics.fill(x + SCROLL_W - 2, ty, x + SCROLL_W - 1, ty + th - 2, Color.DARK_GRAY.getRGB()); //right highlights
+
+            graphics.fill(x + 1, ty, x + SCROLL_W - 1, ty + 1,  0xFFCCCCCC); //top highlight
+            graphics.fill(x + 2, ty + th - 2, x + SCROLL_W - 1, ty + th - 3, Color.DARK_GRAY.getRGB()); //bottom highlight
         }
     }
 
@@ -157,75 +232,40 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
     }
 
     private void drawSingleTab(GuiGraphics graphics, int idx, int x, boolean isActive, boolean top) {
-        int bg     = isActive ? 0xFFC6C6C6 : 0xFF888888;
-        int border = 0xFF373737;
+        int col = (idx % TABS_PER_PAGE) % TABS_PER_ROW;
         int tabTop, tabBot;
+        ResourceLocation sprite;
 
         if (top) {
             tabTop = topPos - TAB_HEIGHT + (isActive ? 0 : INACTIVE_TABS_SINK);
             tabBot = topPos + (isActive ? 1 : 0);
-
-            graphics.fill(x, tabTop, x + TAB_WIDTH, tabBot, bg);
-            graphics.fill(x - 1, tabTop - 1, x,             tabBot, border); // left
-            graphics.fill(x + TAB_WIDTH, tabTop - 1, x + TAB_WIDTH + 1, tabBot, border); // right
-            graphics.fill(x - 1, tabTop - 1, x + TAB_WIDTH + 1, tabTop, border); // top cap
-            if (!isActive){
-                graphics.fill(x, topPos, x + TAB_WIDTH, topPos + 1, border); // bottom (inactive only)
-            }
+            sprite = isActive ? TABS_TOP_SELECTED[col] : TABS_TOP_UNSELECTED[col];
+            graphics.blitSprite(sprite, x, tabTop + 3, TAB_WIDTH, tabBot - tabTop);
         } else {
-            // Active:   1px overlap into panel top, full height downward
-            // Inactive: flush with panel bottom, cut short from the bottom (no gap)
-            tabTop = topPos + imageHeight - (isActive ? 1 : 0);
+            tabTop = topPos + imageHeight - (isActive ? 1 : 0) - 3;
             tabBot = topPos + imageHeight + TAB_HEIGHT - (isActive ? 0 : INACTIVE_TABS_SINK);
-
-            graphics.fill(x, tabTop, x + TAB_WIDTH, tabBot, bg);
-            graphics.fill(x - 1, tabTop, x,             tabBot + 1, border); // left
-            graphics.fill(x + TAB_WIDTH, tabTop, x + TAB_WIDTH + 1, tabBot + 1, border); // right
-            graphics.fill(x - 1, tabBot, x + TAB_WIDTH + 1, tabBot + 1, border); // bottom cap
-            // No top border: active overlaps the panel's bottom border pixel;
-            // inactive sits flush against it so the panel's own border acts as the separator.
+            sprite = isActive ? TABS_BOTTOM_SELECTED[col] : TABS_BOTTOM_UNSELECTED[col];
+            graphics.blitSprite(sprite, x, tabTop, TAB_WIDTH, tabBot - tabTop);
         }
 
         TabMetadata meta = menu.getTabMeta(idx);
         int midX = x + TAB_WIDTH / 2;
+        int midYTop = (topPos - (TAB_HEIGHT/2)) + 3;
+        int midYBot = (topPos + imageHeight + (TAB_HEIGHT/2)) - 3;
         int midY = (tabTop + tabBot) / 2;
         if (meta.hasIcon()) {
-            graphics.renderItem(meta.icon(), midX - 8, midY - 8);
-            graphics.renderItemDecorations(font, meta.icon(), midX - 8, midY - 8, null);
+            if(top){
+                graphics.renderItem(meta.icon(), midX - 8, midYTop - 8);
+                graphics.renderItemDecorations(font, meta.icon(), midX - 8, midYTop - 8, null);
+            }
+            else {
+                graphics.renderItem(meta.icon(), midX - 8, midYBot - 8);
+                graphics.renderItemDecorations(font, meta.icon(), midX - 8, midYBot - 8, null);
+            }
+
         } else {
-            graphics.drawCenteredString(font, String.valueOf(idx + 1), midX, midY - font.lineHeight / 2,
-                    isActive ? 0x404040 : 0xDDDDDD);
+            graphics.drawCenteredString(font, String.valueOf(idx + 1), midX, midY - font.lineHeight / 2, isActive ? 0x404040 : 0xDDDDDD);
         }
-    }
-
-    private void drawArrows(GuiGraphics graphics, int MouseX, int MouseY) {
-
-        if (menu.getTabCount() <= TABS_PER_PAGE) return;
-
-        int maxPage = (menu.getTabCount() - 1) / TABS_PER_PAGE;
-        int aTop = topPos - TAB_HEIGHT, aBot = topPos;
-        int arrowY = (aTop + (TAB_HEIGHT - font.lineHeight) / 2) + 2;
-
-        // Left arrow
-        int lx = leftPos + ARROW_L_RELATIVE_X;
-        boolean canLeft   = currentPage > 0;
-        boolean hoverLeft = canLeft && MouseX >= lx && MouseX < lx + ARROW_WIDTH && MouseY >= aTop && MouseY < aBot;
-        if (hoverLeft) {
-            graphics.fill(lx, aTop, lx + ARROW_WIDTH, aBot, 0x30FFFFFF);
-        }
-        graphics.drawCenteredString(font, "<", lx + ARROW_WIDTH / 2, arrowY, !canLeft ? 0xFF555555 : hoverLeft ? 0xFFFFFFFF : 0xFFDDDDDD);
-
-        // Right arrow
-        int rx = leftPos + ARROW_R_RELATIVE_X;
-        boolean canRight   = currentPage < maxPage;
-        boolean hoverRight = canRight && MouseX >= rx && MouseX < rx + ARROW_WIDTH && MouseY >= aTop && MouseY < aBot;
-        if (hoverRight) {
-            graphics.fill(rx, aTop, rx + ARROW_WIDTH, aBot, 0x30FFFFFF);
-        }
-        graphics.drawCenteredString(font, ">", rx + ARROW_WIDTH / 2, arrowY, !canRight ? 0xFF555555 : hoverRight ? 0xFFFFFFFF : 0xFFDDDDDD);
-
-        //page indicator
-        graphics.drawCenteredString(font, (currentPage + 1) + " / " + (maxPage + 1), leftPos + imageWidth / 2 - 8, topPos - TAB_HEIGHT - 8, 0xFFAAAAAA);
     }
 
     @Override
@@ -248,24 +288,6 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
                     applyScroll(Math.round(frac * menu.getMaxScrollRow()));
                 }
                 return true;
-            }
-        }
-
-        // Page arrows — left click only
-        if (button == 0 && menu.getTabCount() > TABS_PER_PAGE) {
-            int maxPage = (menu.getTabCount() - 1) / TABS_PER_PAGE;
-            int aTop = topPos - TAB_HEIGHT, aBot = topPos;
-            if (mouseY >= aTop && mouseY < aBot) {
-                if (mouseX >= leftPos + ARROW_L_RELATIVE_X && mouseX < leftPos + ARROW_L_RELATIVE_X + ARROW_WIDTH && currentPage > 0)
-                {
-                    currentPage--;
-                    return true;
-                }
-                if (mouseX >= leftPos + ARROW_R_RELATIVE_X && mouseX < leftPos + ARROW_R_RELATIVE_X + ARROW_WIDTH && currentPage < maxPage)
-                {
-                    currentPage++;
-                    return true;
-                }
             }
         }
 
@@ -302,6 +324,17 @@ public class StorageConduitScreen extends AbstractContainerScreen<StorageConduit
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private void updatePageButtons() {
+        boolean multiPage = menu.getTabCount() > TABS_PER_PAGE;
+        prevPageButton.visible = multiPage;
+        nextPageButton.visible = multiPage;
+        if (multiPage) {
+            int max = (menu.getTabCount() - 1) / TABS_PER_PAGE;
+            prevPageButton.active = currentPage > 0;
+            nextPageButton.active = currentPage < max;
+        }
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pocketsmod:block/storage_conduit_side"
+  }
+}
