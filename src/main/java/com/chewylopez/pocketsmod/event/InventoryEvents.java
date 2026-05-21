@@ -206,6 +206,10 @@ public class InventoryEvents {
         Holder<Enchantment> enchHolder = registries.registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(ModEnchantments.POCKETS);
         int pocketsLevel = EnchantmentHelper.getItemEnchantmentLevel(enchHolder, items);
 
+        if(pocketsLevel > 4){
+            pocketsLevel = 4;
+        }
+
         if(pocketsLevel == 0) {
             for(int i = 0; i < 4; i++) {
                 player.drop(pocket.get(i), false);

@@ -1,5 +1,6 @@
 package com.chewylopez.pocketsmod.server;
 
+import com.chewylopez.pocketsmod.PocketsMod;
 import com.chewylopez.pocketsmod.client.StorageConduitMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -9,7 +10,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetTabNamePacket(int tabIndex, String name) implements CustomPacketPayload {
 
-    public static final Type<SetTabNamePacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("yourmod", "set_tab_name"));
+    public static final Type<SetTabNamePacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID, "set_tab_name"));
 
     public static final StreamCodec<FriendlyByteBuf, SetTabNamePacket> STREAM_CODEC =
             StreamCodec.of(

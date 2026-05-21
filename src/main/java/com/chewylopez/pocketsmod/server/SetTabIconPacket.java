@@ -1,5 +1,6 @@
 package com.chewylopez.pocketsmod.server;
 
+import com.chewylopez.pocketsmod.PocketsMod;
 import com.chewylopez.pocketsmod.client.StorageConduitMenu;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,7 +13,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SetTabIconPacket(int tabIndex, ItemStack icon) implements CustomPacketPayload {
 
-    public static final Type<SetTabIconPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath("yourmod", "set_tab_icon"));
+    public static final Type<SetTabIconPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PocketsMod.MODID, "set_tab_icon"));
 
     public static final StreamCodec<FriendlyByteBuf, SetTabIconPacket> STREAM_CODEC =
             StreamCodec.of(

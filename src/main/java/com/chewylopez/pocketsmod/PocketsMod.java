@@ -35,6 +35,7 @@ public class PocketsMod
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        PocketsCreativeTab.register(modEventBus);
 
         ModLoadingContext.get().registerExtensionPoint(
                 IConfigScreenFactory.class,

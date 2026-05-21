@@ -17,8 +17,8 @@ public class ModBlockEntities {
             () -> BlockEntityType.Builder.of(StorageConduitBlockEntity::new, ModBlocks.STORAGE_CONDUIT.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StorageConduitExtensionBlockEntity>>
-            STORAGE_CONDUIT_EXTENSION = BLOCK_ENTITIES.register("storage_conduit_extension",
-            () -> BlockEntityType.Builder.of(StorageConduitExtensionBlockEntity::new, ModBlocks.STORAGE_CONDUIT_EXTENSION.get()).build(null));
+            STORAGE_CONDUIT_EXTENSION = BLOCK_ENTITIES.register("storage_conduit_connector",
+            () -> BlockEntityType.Builder.of(StorageConduitExtensionBlockEntity::new, ModBlocks.STORAGE_CONDUIT_CONNECTOR.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
