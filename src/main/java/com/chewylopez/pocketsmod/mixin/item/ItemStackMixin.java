@@ -42,7 +42,12 @@ public class ItemStackMixin {
             cir.setReturnValue(Math.min(Config.ITEMSTACK_SIZE, 999));
         }
         if(natural > 4 && natural <= 16){
-            cir.setReturnValue(Math.min(Config.ITEMSTACK_SIZE/4, 999));
+            if(Config.ITEMSTACK_SIZE < 4) {
+                cir.setReturnValue(Math.min(1, 999));
+            }
+            else{
+                cir.setReturnValue(Math.min(Config.ITEMSTACK_SIZE / 4, 999));
+            }
         }
     }
 }
