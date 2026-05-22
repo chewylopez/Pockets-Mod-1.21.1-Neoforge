@@ -1,6 +1,6 @@
 package com.chewylopez.pocketsmod.block;
 
-import com.chewylopez.pocketsmod.client.TabMetadata;
+import com.chewylopez.pocketsmod.player.client.TabMetadata;
 import com.chewylopez.pocketsmod.entity.block.ModBlockEntities;
 import com.chewylopez.pocketsmod.entity.block.StorageConduitBlockEntity;
 import com.mojang.serialization.MapCodec;
@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class StorageConduitBlock extends BaseEntityBlock {

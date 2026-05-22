@@ -1,7 +1,7 @@
 package com.chewylopez.pocketsmod.event;
 
 import com.chewylopez.pocketsmod.PocketsMod;
-import com.chewylopez.pocketsmod.client.StorageConduitScreen;
+import com.chewylopez.pocketsmod.player.client.StorageConduitScreen;
 import com.chewylopez.pocketsmod.player.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

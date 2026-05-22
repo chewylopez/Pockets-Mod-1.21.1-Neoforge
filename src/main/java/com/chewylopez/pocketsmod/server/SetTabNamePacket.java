@@ -1,7 +1,7 @@
 package com.chewylopez.pocketsmod.server;
 
 import com.chewylopez.pocketsmod.PocketsMod;
-import com.chewylopez.pocketsmod.client.StorageConduitMenu;
+import com.chewylopez.pocketsmod.player.client.StorageConduitMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
