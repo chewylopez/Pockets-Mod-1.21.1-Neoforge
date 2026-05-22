@@ -1,8 +1,8 @@
 package com.chewylopez.pocketsmod.entity.block;
 
 import com.chewylopez.pocketsmod.InventoryInterface.InventorySource;
-import com.chewylopez.pocketsmod.client.StorageConduitMenu;
-import com.chewylopez.pocketsmod.client.TabMetadata;
+import com.chewylopez.pocketsmod.player.client.StorageConduitMenu;
+import com.chewylopez.pocketsmod.player.client.TabMetadata;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

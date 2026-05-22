@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.client;
+package com.chewylopez.pocketsmod.player.client;
 
 import com.chewylopez.pocketsmod.InventoryInterface.StorageToggleSlot;
 import com.chewylopez.pocketsmod.block.ModBlocks;

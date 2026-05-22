@@ -1,4 +1,4 @@
-package com.chewylopez.pocketsmod.client;
+package com.chewylopez.pocketsmod.player.client;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;

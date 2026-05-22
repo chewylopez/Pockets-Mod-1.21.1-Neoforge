@@ -1,7 +1,7 @@
 package com.chewylopez.pocketsmod.player;
 
 import com.chewylopez.pocketsmod.PocketsMod;
-import com.chewylopez.pocketsmod.client.StorageConduitMenu;
+import com.chewylopez.pocketsmod.player.client.StorageConduitMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
